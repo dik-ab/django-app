@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <link href="{% static 'css/list.css' %}" rel="stylesheet" type="text/css">
+  <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
+</head>
+<body>
+  <div class="container">
+    <div class="offset-2 col-9 mt-5">
+      <div class="certification">
+        <h1>資格一覧</h1>
+        <form method="get", action = "{% url 'certifications:certification_list'%}">
+          <p><input class="search mb-5" type="text" name="certification_name" value="{{ certification_name }}"/><input type="submit" value="検索"/></p>
+        {% for certification in object_list %}
+        <a href="{% url 'certifications:certified_experience' pk=certification.id %}">{{ certification.name }}</a>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>
