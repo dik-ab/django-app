@@ -11,12 +11,16 @@
   <div class="container">
     <div class="offset-2 col-9 mt-5">
       <div class="certification">
-        <h1>資格一覧</h1>
-        <form method="get", action = "{% url 'certifications:certification_list'%}">
-          <p><input class="search mb-5" type="text" name="certification_name" value="{{ certification_name }}"/><input type="submit" value="検索"/></p>
-        {% for certification in object_list %}
-        <a href="{% url 'certifications:experience_list' pk=certification.id %}">{{ certification.name }}</a>
-        {% endfor %}
+        <h1>{{ certification_name }}合格体験記</h1>
+      </div>
+      <div class="mt-5">
+      <h5>タイトル</h5>{{ object.title }}
+      <h5>勉強方法(使った参考書やサイト名など)　：　</h5> 
+      {{ object.how_to_study }}
+      <h5>勉強した期間：　</h5>
+      {{ object.study_time }}
+      <h5>内容</h5>
+    　{{　object.description }}
       </div>
     </div>
   </div>

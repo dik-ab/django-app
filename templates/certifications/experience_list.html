@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <link href="{% static 'css/list.css' %}" rel="stylesheet" type="text/css">
+  <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
+</head>
+<body>
+  <div class="container">
+    <div class="offset-2 col-9 mt-5">
+      <div class="certification"> 
+        <h1>{{ certification_name }}合格体験記一覧</h1>
+      </div>
+      <table class="table table-striped ">
+        <thead>
+          <tr>
+            <td>内容</td>
+            <td>取るのにかかった期間</td>
+          </tr>
+        </thead>
+        <tbody>
+        {% for experience in object_list %}
+        <tr>
+　　　　   <td><a href="{% url 'certifications:experience_detail' pk=experience.id %}">{{ experience.title }}</td>
+          <td>{{ experience.study_time }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

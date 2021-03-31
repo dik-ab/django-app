@@ -17,10 +17,11 @@ class Experiences(models.Model):
     title = models.CharField(max_length = 50)
     how_to_study = models.CharField(max_length = 100)
     study_time = models.CharField(max_length = 30)
+    description = models.TextField(default = '', max_length = 10000)
 
     class Meta:
         db_table = 'experiences'
 
     
     def __str__(self):
-        return self.name
+        return self.title
