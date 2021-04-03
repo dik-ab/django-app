@@ -4,20 +4,28 @@
 <head>
   <meta charset="utf-8">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
   <link href="{% static 'css/list.css' %}" rel="stylesheet" type="text/css">
   <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
 </head>
 <body>
-  <div class="container">
-    <div class="offset-2 col-9 mt-5">
-      <div class="certification">
+  <div class="container-fluid h-100">
+    <div class="row">
+      <div class="col-2 bg-light">
+    　
+      </div>
+    <div class="offset-2 col-6 offset-2">
+      <div class="certification mt-5">
         <h1>資格一覧</h1>
         <form method="get", action = "{% url 'certifications:certification_list'%}">
-          <p><input class="search mb-5" type="text" name="certification_name" value="{{ certification_name }}"/><input type="submit" value="検索"/></p>
+          <p><input class="search mt-3 mb-2" type="text" name="certification_name" value="{{ certification_name }}" placeholder="検索"/><button type="submit"><i class="fas fa-search"></i></button></p>
+        </form>
+        <a class="btn btn-primary mb-5" style="display:block; width:150px; margin:0 auto;"href="{% url 'certifications:experience_form' %}">合格体験記を書く</a>
         {% for certification in object_list %}
         <a href="{% url 'certifications:experience_list' pk=certification.id %}">{{ certification.name }}</a>
         {% endfor %}
       </div>
+    </div>
     </div>
   </div>
 </body>

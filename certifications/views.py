@@ -2,7 +2,13 @@ from django.shortcuts import render
 from django.db.models import Q
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import (
+    FormView,
+)
+from django.urls import reverse_lazy
 from .models import Certifications, Experiences
+from . import forms
+from .forms import ExperienceForm
 import os
 
 class CertificationListView(ListView):
@@ -27,16 +33,8 @@ class ExperienceListView(ListView):
     template_name = os.path.join('certifications', 'experience_list.html')
 
     def get_queryset(self, **kwargs):
-        # query = super(ExperienceListView, self).get_queryset(**kwargs)
-        # pk = self.request.GET.get('pk')
-        # if pk:
-        #     query = query.filter(
-        #         certification__id=pk
-        #     )
         query = Experiences.objects.filter(certification__id=self.kwargs['pk'])
-
         return query
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -54,4 +52,15 @@ class ExperienceDetailView(DetailView):
         certification_name_list = Certifications.objects.get(id=self.kwargs['pk'])
         context['certification_name'] = certification_name_list.name
         return context
+
+    
+class ExperienceFormView(FormView):
+    template_name = os.path.join('certifications', 'experience_form.html')
+    form_class = forms.ExperienceForm
+    success_url = reverse_lazy('certifications:certification_list')
+
+    def form_valid(self, form):
+            if form.is_valid():
+                form.save()
+            return super(ExperienceFormView, self).form_valid(form)
 

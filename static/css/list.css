@@ -1,3 +1,6 @@
+html,body{
+    height: 100%
+}
 .certification{
     text-align: center;
 }
@@ -23,4 +26,7 @@ h1:before {
     transform: translateX(-50%);
     background-color: black;
     border-radius: 2px;
+}
+.sidebar{
+    height:100%
 }
