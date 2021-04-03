@@ -3,6 +3,8 @@ from django.views.generic.edit import (CreateView, FormView)
 from django.views.generic.base import TemplateView, View
 from django.contrib.auth import login, authenticate, logout
 from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from .models import Users
 from .forms import SignUpForm
 from .forms import UserLoginForm
 from django.contrib.auth.views import LoginView, LogoutView
@@ -24,7 +26,7 @@ class UserLoginView(FormView):
         user = authenticate(email=email, password=password)
         if user is not None and user.is_active:
                 login(request, user)
-        return redirect('accounts:home')
+        return redirect('')
     
 
 class UserLoginView(LoginView):
@@ -40,5 +42,8 @@ class UserLoginView(LoginView):
 
 
 class SignUpView(CreateView):
+    model = Users
     template_name = 'signup.html'
     form_class = SignUpForm
+    success_url = reverse_lazy('certifications:certification_list')
+
