@@ -1,8 +1,6 @@
-html,body{
-    height: 100%
-}
 .certification{
     text-align: center;
+    margin-top: 80px;
 }
 
 input.search{
@@ -30,3 +28,4 @@ h1:before {
 .sidebar{
     height:100%
 }
+

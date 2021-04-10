@@ -5,6 +5,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import (
     FormView,
 )
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .models import Certifications, Experiences
 from . import forms
@@ -54,13 +55,16 @@ class ExperienceDetailView(DetailView):
         return context
 
     
-class ExperienceFormView(FormView):
+class ExperienceFormView(LoginRequiredMixin, FormView):
     template_name = os.path.join('certifications', 'experience_form.html')
     form_class = forms.ExperienceForm
     success_url = reverse_lazy('certifications:certification_list')
 
     def form_valid(self, form):
-            if form.is_valid():
-                form.save()
-            return super(ExperienceFormView, self).form_valid(form)
+        if form.is_valid():
+            form.save()
+        return super(ExperienceFormView, self).form_valid(form)
+
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
