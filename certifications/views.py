@@ -52,7 +52,7 @@ class ExperienceDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        certification_name_list = Certifications.objects.get(id=self.kwargs['pk'])
+        certification_name_list = Certifications.objects.get(experiences__id=self.kwargs['pk'])
         context['certification_name'] = certification_name_list.name
         return context
 
