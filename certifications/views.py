@@ -21,7 +21,9 @@ class CertificationListView(ListView):
         certification_name = self.request.GET.get('certification_name', None)
         if certification_name:
             query = query.filter(Q(name__icontains=certification_name))
-        return query
+            return query
+        else:
+            return None
  
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
