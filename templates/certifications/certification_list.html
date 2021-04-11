@@ -25,10 +25,13 @@
         {% endif %}
         </div>
       </div>
-    <div class="offset-2 col-6 offset-2">
-      <div class="mt-5">　</div>
-      <div class="mt-2">　</div>
-      <div class="certification mt-5">
+    <div class="offset-1 col-8">
+        {% if messages %}
+        　{% for message in messages %}
+        　　<p class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</p>
+          {% endfor %}
+    　　{% endif %}
+        <div class="certification mt-5">
         <h1>資格を探す</h1>
         <form method="get", action = "{% url 'certifications:certification_list'%}">
           <p><input class="search mt-3 mb-2" type="text" name="certification_name" value="{{ certification_name }}" placeholder="検索"/><button type="submit"><i class="fas fa-search"></i></button></p>
@@ -42,6 +45,11 @@
           <a href="{% url 'certifications:experience_list' pk=certification.id %}">{{ certification.name }}</a>
           {% endfor %}
         {% endif %}
+        <hr>
+        最近の投稿↓：投稿ありがとうございます✨
+        {% for current_experience in current_experience_list %}
+        <a href="{% url 'certifications:experience_detail' pk=current_experience.id %}">{{ current_experience }}</a>
+        {% endfor %}
       </div>
     </div>
     </div>

@@ -5,6 +5,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.edit import (
     FormView,
 )
+from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from .models import Certifications, Experiences
@@ -28,6 +29,7 @@ class CertificationListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['certification_name'] = self.request.GET.get('certificaton_name', '')
+        context['current_experience_list'] = Experiences.objects.all()
         return context
 
 
@@ -52,8 +54,8 @@ class ExperienceDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        certification_name_list = Certifications.objects.get(id=self.kwargs['pk'])
-        context['certification_name'] = certification_name_list.name
+        certification_name_list = Certifications.objects.get(experiences__id=self.kwargs['pk'])
+        context['certification_name'] = certification_name_list
         return context
 
     
@@ -65,6 +67,7 @@ class ExperienceFormView(LoginRequiredMixin, FormView):
     def form_valid(self, form):
         if form.is_valid():
             form.save()
+            messages.success(self.request, '合格体験記が登録されました')
         return super(ExperienceFormView, self).form_valid(form)
 
     def dispatch(self, *args, **kwargs):
