@@ -9,22 +9,30 @@
 </head>
 <body>
   <div class="container">
-    <div class="offset-2 col-9 mt-5">
-      <div class="certification">
-        <h1>{{ certification_name }}合格体験記</h1>
-      </div>
-      <div class="mt-5">
-      <h5>タイトル</h5>{{ object.title }}
-      <h5>勉強方法(使った参考書やサイト名など)　：　</h5> 
-      {{ object.how_to_study }}
-      <h5>URL</h5> 
-      <a href="{{ object.url }}">{{ object.url }}</a>
-      <h5>勉強した期間：　</h5>
-      {{ object.study_time }}
+    <div class="certification mt-5">
+      <h1>{{ certification_name }}合格体験記</h1>
+    </div>
+    <div class="row mt-5">
+      <div class="offset-2 col-4">
+      <p style="font-size: 30px;">タイトル</p>
+      <h5>使用した参考書やサイト名</h5> 
+      {% if object.url is None %}
+      {% else %}
+      <h5>URL</h5>
+      {% endif %}
+      <h5>勉強した期間</h5>
       <h5>内容</h5>
-    　{{　object.description }}
+      </div>
+      <div class="col-6">
+        <h5>{{ object.title }}</h5>
+        {{ object.how_to_study }}
+        {% if object.url is None %}
+        {% else %} 
+          <a href="{{ object.url }}">{{ object.url }}</a>
+        {% endif %}
+        {{ object.study_time }}
+      　{{　object.description }}
       </div>
     </div>
-  </div>
 </body>
 </html>

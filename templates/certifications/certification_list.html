@@ -26,23 +26,36 @@
         </div>
       </div>
     <div class="offset-2 col-6 offset-2">
-      <div class="mt-5">　</div>
       <div class="mt-2">　</div>
-      <div class="certification mt-5">
-        <h1>資格を探す</h1>
-        <form method="get", action = "{% url 'certifications:certification_list'%}">
-          <p><input class="search mt-3 mb-2" type="text" name="certification_name" value="{{ certification_name }}" placeholder="検索"/><button type="submit"><i class="fas fa-search"></i></button></p>
-        </form>
-        <a class="btn btn-primary mb-5" style="display:block; width:150px; margin:0 auto;"href="{% url 'certifications:experience_form' %}">合格体験記を書く</a>
-        <h5>検索結果</h5>
-        {% if object_list|length == 0 %}
-          <p>検索結果が存在しません</p>
-        {% else %}
-          {% for certification in object_list %}
-          <a href="{% url 'certifications:experience_list' pk=certification.id %}">{{ certification.name }}</a>
+        <div class="certification mt-5">
+          <h1>資格を探す</h1>
+          <form method="get", action = "{% url 'certifications:certification_list'%}">
+            <p><input class="search mt-3 mb-2" type="text" name="certification_name" value="{{ certification_name }}" placeholder="検索"/><button type="submit"><i class="fas fa-search"></i></button></p>
+          </form>
+          <a class="btn btn-primary mb-5" style="display:block; width:150px; margin:0 auto;"href="{% url 'certifications:experience_form' %}">合格体験記を書く</a>
+          <h5>検索結果</h5>
+          {% if object_list|length == 0 %}
+            <p>検索結果が存在しません</p>
+          {% else %}
+            {% for certification in object_list %}
+            <a href="{% url 'certifications:experience_list' pk=certification.id %}">{{ certification.name }}</a>
+            {% endfor %}
+          {% endif %}
+          <hr>
+          最近の投稿：投稿ありがとうございます✨
+        </div>
+        
+        <div class="row mt-2">
+          {% for current_experience in current_experience_list reversed %}
+            <div class="offset-1 col-5">
+              {{ current_experience.certification }}合格体験記
+              <a class="textwrap" href="{% url 'certifications:experience_detail' pk=current_experience.id %}">{{ current_experience}}</a>
+            </div>
           {% endfor %}
-        {% endif %}
+          
+        </div>
       </div>
+    </div>
     </div>
     </div>
   </div>

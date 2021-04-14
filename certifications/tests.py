@@ -1,3 +1,5 @@
 from django.test import TestCase
+from .models import Certifications
 
-# Create your tests here.
+
+

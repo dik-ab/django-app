@@ -10,9 +10,12 @@
 <body>
   <div class="container">
     <div class="offset-2 col-6 mt-5">
+        <a href="{% url 'certifications:certification_list'%}">一覧ページへ</a>
         <form method="POST">
+          <div class="mt-3">
           {% csrf_token %}
           {{ form.as_p }}
+          </div>
           <button type="submit" class="btn btn-primary">投稿する</button>
         </form>
       </div>

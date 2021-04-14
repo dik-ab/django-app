@@ -12,15 +12,11 @@ from django.contrib.auth.views import LoginView, LogoutView
 
 
 
-
-
-
 class UserLoginView(LoginView):
     template_name = 'login.html'
     authentication_form = UserLoginForm
 
 class UserLogoutView(View):
-
     def get(self, request, *args, **kwargs):
         logout(request)
         return redirect('certifications:certification_list')
