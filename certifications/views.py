@@ -38,7 +38,7 @@ class CertificationListView(ListView):
 class ExperienceListView(ListView):
     model = Experiences
     template_name = os.path.join('certifications', 'experience_list.html')
-    paginate_by=20
+    paginate_by=1
 
     def get_queryset(self, **kwargs):
         query = Experiences.objects.filter(certification__id=self.kwargs['pk'])
@@ -69,7 +69,7 @@ class ExperienceFormView(FormView):
 
     template_name = os.path.join('certifications', 'experience_form.html')
     form_class = forms.ExperienceForm
-    success_url = reverse_lazy('certifications:thanks')
+    success_url = reverse_lazy('certifications:certification_list')
 
     def form_valid(self, form):
         if form.is_valid():
