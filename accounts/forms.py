@@ -8,7 +8,7 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = Users
-        fields = ('email', 'username','password')
+        fields = ('username','password')
 
     def save(self, commit=True):
         user = super(SignUpForm, self).save(commit=False)
@@ -19,20 +19,19 @@ class SignUpForm(UserCreationForm):
 
 class UserLoginForm(AuthenticationForm):
 
-    username = forms.EmailField(label = 'email')
-    password = forms.CharField(label = 'パスワード',widget=forms.PasswordInput())
+    username = forms.CharField(label = 'username')
+    password = forms.CharField(label = 'password',widget=forms.PasswordInput())
 
 
 class SignUpForm(forms.ModelForm):
     username = forms.CharField(label = '名前')
-    email = forms.EmailField(label = 'メールアドレス')
     password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
     confirm_password = forms.CharField(label='パスワード再入力', widget=forms.PasswordInput())
 
 
     class Meta:
         model = Users
-        fields = ['username', 'email', 'password']
+        fields = ['username', 'password']
 
     def clean(self):
         cleaned_data = super().clean()

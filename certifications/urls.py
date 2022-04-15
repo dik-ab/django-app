@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (
     CertificationListView, ExperienceListView,
-    ExperienceDetailView, ExperienceFormView,
+    ExperienceDetailView, ExperienceFormView,ThanksView
 )
 
 app_name = 'certifications'

@@ -13,46 +13,45 @@
     <div class="row h-100">
       <div class="col-2 bg-light h-100">
         <div class="container mt-3">
-        {% if user.is_authenticated %}
-         <a style="display:block;" href="{% url 'accounts:logout' %}">ログアウト</a>
-         <a style="display:block;" href="{% url 'certifications:experience_form' %}">合格体験記を書く</a>
-        {% else %}
-        <p>合格体験記を見るには右の検索欄に資格名を入力して🔍ボタンを押してください(資格名は一部でも可)</p>
-         合格体験記を書くにはログインが必要です
-         <a class="mb-3"style="display:block;" href="{% url 'accounts:login' %}">ログイン</a>
-         ユーザー登録がまだの方はこちらからユーザー登録をお願いします
-         <a class="mb-3" style="display:block;" href="{% url 'accounts:signup' %}">登録画面へ</a>
-        {% endif %}
+          <p>合格体験くん</p>
+         <a style="display:block;" href="{% url 'certifications:experience_form' %}">体験記を書く</a>
         </div>
       </div>
-    <div class="offset-2 col-6 offset-2">
+    <div class="offset-1 col-8">
       <div class="mt-2">　</div>
         <div class="certification mt-5">
-          <h1>資格を探す</h1>
+          <h1>合格体験記を探す</h1>
+          <div class="col-12">
           <form method="get", action = "{% url 'certifications:certification_list'%}">
-            <p><input class="search mt-3 mb-2" type="text" name="certification_name" value="{{ certification_name }}" placeholder="検索"/><button type="submit"><i class="fas fa-search"></i></button></p>
+            <p><input style="width:280px" class="search mt-3 mb-2 col-12" type="text" name="certification_name" value="{{ certification_name }}" placeholder="資格名または大学名を入力してください"/><button type="submit"><i class="fas fa-search"></i></button></p>
           </form>
+          </div>
           <a class="btn btn-primary mb-5" style="display:block; width:150px; margin:0 auto;"href="{% url 'certifications:experience_form' %}">合格体験記を書く</a>
           <h5>検索結果</h5>
           {% if object_list|length == 0 %}
             <p>検索結果が存在しません</p>
           {% else %}
             {% for certification in object_list %}
-            <a href="{% url 'certifications:experience_list' pk=certification.id %}">{{ certification.name }}</a>
+            <a href="{% url 'certifications:experience_list' pk=certification.id %}">{{ certification.name }}合格体験記</a><br>
             {% endfor %}
           {% endif %}
           <hr>
           最近の投稿：投稿ありがとうございます✨
-        </div>
         
-        <div class="row mt-2">
+        <div class="mt-2">
+          <table style="margin:auto; font-size:14px; border-collapse:separate; border-spacing:20px 5px; table-layout:fixed;">
           {% for current_experience in current_experience_list reversed %}
-            <div class="offset-1 col-5">
+          <tr>
+            <td>
               {{ current_experience.certification }}合格体験記
+            </td>
+            <td>
               <a class="textwrap" href="{% url 'certifications:experience_detail' pk=current_experience.id %}">{{ current_experience}}</a>
-            </div>
+            </td>
+          </tr>
           {% endfor %}
-          
+          </table>
+          </div>
         </div>
       </div>
     </div>

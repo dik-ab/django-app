@@ -5,34 +5,56 @@
   <meta charset="utf-8">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
   <link href="{% static 'css/list.css' %}" rel="stylesheet" type="text/css">
-  <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
+  <title>{% block title %}{{ certification_name }}合格体験記 {{ object.title }}{% endblock %}</title>
 </head>
 <body>
-  <div class="container">
-    <div class="certification mt-5">
-      <h1>{{ certification_name }}合格体験記</h1>
+  <div class="container-fluid h-100">
+    <div class="row h-100">
+      <div class="col-2 bg-light h-100">
+        <div class="container justify-content-center mt-3">
+        <p>合格体験くん</p>
+         <a style="display:block;" href="{% url 'certifications:experience_form' %}">体験記を書く</a>
+      </div>
+      </div>
+      <div class="offset-1 col-8">
+        <div class="mt-2">  </div>
+        <div class="certification mt-5">
+          <h2>{{ certification_name }}合格体験記</h2>
+        </div>
+        <div class="row justify-content-center mt-5">
+          <div class="col-lg-10">
+            <table style="font-size:14px; border-collapse:separate; border-spacing:20px 5px; table-layout:fixed;" class="table">
+              <tbody>
+                <tr>
+                  <td class="text-nowrap" style="width:130px">タイトル</td>
+                  <td>{{ object.title }}</td>
+                </tr>
+                <tr>
+                  <td>使用した参考書やテキスト</td>
+                  <td>{{ object.how_to_study }}</td>
+                </tr>
+                <tr>
+                  <td class="text-nowrap">役に立ったサイト</td>
+                  <td>{{ object.how_to_study_time }}</td>
+                </tr>
+                <tr>
+                  <td class="text-nowrap">学習期間</td>
+                  <td>{{ object.study_time }}</td>
+                </tr>
+                <tr>
+                  <td>内容</td>
+                  <td>{{ object.description }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="mb-1">
+            <a style="margin-left: 24px;" href="{% url 'certifications:experience_list' pk=object.certification.id %}">{{ certification_name }}合格体験記一覧に戻る</a>
+            </div>
+            <a style="margin-left: 24px;" href="{% url 'certifications:certification_list'%}">検索画面に戻る</a>
+    
+          </div>
     </div>
-    <div class="row mt-5">
-      <div class="offset-2 col-4">
-      <p style="font-size: 30px;">タイトル</p>
-      <h5>使用した参考書やサイト名</h5> 
-      {% if object.url is None %}
-      {% else %}
-      <h5>URL</h5>
-      {% endif %}
-      <h5>勉強した期間</h5>
-      <h5>内容</h5>
-      </div>
-      <div class="col-6">
-        <h5>{{ object.title }}</h5>
-        {{ object.how_to_study }}
-        {% if object.url is None %}
-        {% else %} 
-          <a href="{{ object.url }}">{{ object.url }}</a>
-        {% endif %}
-        {{ object.study_time }}
-      　{{　object.description }}
-      </div>
+    
     </div>
 </body>
 </html>

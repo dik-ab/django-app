@@ -13,11 +13,12 @@
       <div class="certification"> 
         <h1>{{ certification_name }}合格体験記一覧</h1>
       </div>
-      <table class="table table-striped ">
+      <table class="table table-striped">
         <thead>
           <tr>
-            <td>内容</td>
+            <td>タイトル</td>
             <td>取るのにかかった期間</td>
+            <td>投稿日時</td>
           </tr>
         </thead>
         <tbody>
@@ -25,10 +26,13 @@
         <tr>
 　　　　   <td><a href="{% url 'certifications:experience_detail' pk=experience.id %}">{{ experience.title }}</td>
           <td>{{ experience.study_time }}</td>
+          <td>{{experience.timestamp }}</td>
         </tr>
         {% endfor %}
         </tbody>
       </table>
+      
+      <a href="{% url 'certifications:certification_list'%}">検索ページに戻る</a>
     </div>
   </div>
 </body>
