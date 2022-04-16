@@ -12,8 +12,8 @@
   <div class="container-fluid h-100">
     <div class="row h-100">
       <div class="col-2 bg-light h-100">
-        <div class="container mt-3">
-          <p>合格体験くん</p>
+        <div class="container mt-3 ">
+          <p class="text-center">合格体験くん</p>
          <a style="display:block;" href="{% url 'certifications:experience_form' %}">体験記を書く</a>
         </div>
       </div>
@@ -26,15 +26,16 @@
             <p><input style="width:280px" class="search mt-3 mb-2 col-12" type="text" name="certification_name" value="{{ certification_name }}" placeholder="資格名または大学名を入力してください"/><button type="submit"><i class="fas fa-search"></i></button></p>
           </form>
           </div>
-          <a class="btn btn-primary mb-5" style="display:block; width:150px; margin:0 auto;"href="{% url 'certifications:experience_form' %}">合格体験記を書く</a>
+          
           <h5>検索結果</h5>
           {% if object_list|length == 0 %}
             <p>検索結果が存在しません</p>
           {% else %}
             {% for certification in object_list %}
-            <a href="{% url 'certifications:experience_list' pk=certification.id %}">{{ certification.name }}合格体験記</a><br>
+            <a href="{% url 'certifications:experience_list' pk=certification.id %}">|{{ certification.name }}|合格体験記一覧</a><br>
             {% endfor %}
           {% endif %}
+          <a class="btn btn-primary mt-4" style="display:block; width:150px; margin:0 auto;"href="{% url 'certifications:experience_form' %}">合格体験記を書く</a>
           <hr>
           最近の投稿：投稿ありがとうございます✨
         
@@ -46,7 +47,7 @@
               {{ current_experience.certification }}合格体験記
             </td>
             <td>
-              <a class="textwrap" href="{% url 'certifications:experience_detail' pk=current_experience.id %}">{{ current_experience}}</a>
+              <a class="textwrap" href="{% url 'certifications:experience_detail' pk=current_experience.id %}">{{ current_experience.title}},{{ current_experience.timestamp | date:'Y/m/d H:i' }}</a>
             </td>
           </tr>
           {% endfor %}

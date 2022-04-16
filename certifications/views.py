@@ -18,6 +18,7 @@ import os
 class CertificationListView(ListView):
     model = Certifications
     template_name = os.path.join('certifications', 'certification_list.html')
+    paginated_by=10
 
     def get_queryset(self):
         query = super().get_queryset()
@@ -31,17 +32,17 @@ class CertificationListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['certification_name'] = self.request.GET.get('certificaton_name', '')
-        context['current_experience_list'] = Experiences.objects.all()
+        context['current_experience_list'] = Experiences.objects.all()[:10]
         return context
 
 
 class ExperienceListView(ListView):
     model = Experiences
     template_name = os.path.join('certifications', 'experience_list.html')
-    paginate_by=1
+    paginate_by=20
 
     def get_queryset(self, **kwargs):
-        query = Experiences.objects.filter(certification__id=self.kwargs['pk'])
+        query = Experiences.objects.filter(certification__id=self.kwargs['pk']).order_by('-timestamp')
         return query
 
     def get_context_data(self, **kwargs):
@@ -69,7 +70,7 @@ class ExperienceFormView(FormView):
 
     template_name = os.path.join('certifications', 'experience_form.html')
     form_class = forms.ExperienceForm
-    success_url = reverse_lazy('certifications:certification_list')
+    success_url = reverse_lazy('certifications:thanks')
 
     def form_valid(self, form):
         if form.is_valid():
@@ -81,4 +82,10 @@ class ExperienceFormView(FormView):
 
 class ThanksView(TemplateView):
     template_name = os.path.join('certifications', 'thanks.html')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['new_experience'] = Experiences.objects.order_by('timestamp').last()
+        return context
+
 

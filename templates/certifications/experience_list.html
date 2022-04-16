@@ -17,7 +17,7 @@
       <table class="table table-striped">
         <thead>
           <tr>
-            <td>タイトル</td>
+            <td style="width:50%;">タイトル</td>
             <td>取るのにかかった期間</td>
             <td>投稿日時</td>
           </tr>
@@ -25,7 +25,7 @@
         <tbody>
         {% for experience in object_list %}
         <tr>
-　　　　   <td><a href="{% url 'certifications:experience_detail' pk=experience.id %}">{{ experience.title }}</td>
+　　　　   <td style="width:50%;"><a href="{% url 'certifications:experience_detail' pk=experience.id %}">{{ experience.title }}</td>
           <td>{{ experience.study_time }}</td>
           <td>{{experience.timestamp }}</td>
         </tr>
@@ -33,7 +33,7 @@
         </tbody>
       </table>
       <div class="col-6 offset-3 justify-content-center">
-        {% if is_paginated %}
+        
         <div class="container">
           <div class="row">
               <div class="col-md-6 offset-md-3 py-2">
@@ -48,7 +48,7 @@
                               {% for i in page_obj.paginator.page_range %}
                                   {% if page_obj.number == i %}
                                       <li class="page-item active" aria-current="page">
-                                          <a class="page-link" href="#">{{ i }} <span class="sr-only">(現位置)</span></a>
+                                          <a class="page-link" href="#">{{ i }} <span class="sr-only"></span></a>
                                       </li>
                                   {% else %}
                                       <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
@@ -65,7 +65,7 @@
               </div>
           </div>
       </div>
-        {% endif %}
+        
     </div>
       
       <a href="{% url 'certifications:certification_list'%}">検索ページに戻る</a>
