@@ -16,8 +16,6 @@ services:
     volumes:                 
       - .:/echo
     ports:                   
-      - "8000:8000"
       - "8000:443"
-      - "8000:80"
     depends_on:               
       - db
