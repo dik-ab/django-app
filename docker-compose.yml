@@ -16,6 +16,8 @@ services:
     volumes:                 
       - .:/echo
     ports:                   
-      - "443:8000"
+      - "8000:8000"
     depends_on:               
       - db
+    environment:
+      DOMAINS: 'taikenkun.com -> http://web:8000'
