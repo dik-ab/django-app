@@ -8,6 +8,8 @@ services:
       MYSQL_USER: daiki
       MYSQL_PASSWORD: daiki0727
       TZ: 'Asia/Tokyo'
+    volumes:
+      - ./db-data:/var/lib/mysql/data
     command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
                                   
   web:
@@ -19,5 +21,21 @@ services:
       - "8000:8000"
     depends_on:               
       - db
+  
+  https-portal:
+    image: steveltn/https-portal:latest
+    ports:
+      - 80:80
+      - 443:443
+    links:
+      - web
     environment:
       DOMAINS: 'taikenkun.com -> http://web:8000'
+      STAGE: 'production'
+      #FOECE_RENEW: 'true'
+    volumes:
+      - ./ssl_certs:/var/lib/https-portal
+
+volumes:
+  db-data:
+  ssl_certs:
