@@ -8,8 +8,8 @@ app_name = 'certifications'
 
 urlpatterns = [
     path('', CertificationListView.as_view(), name = 'certification_list'),
-    path('experience_list/<int:pk>', ExperienceListView.as_view(), name = 'experience_list'),
-    path('experience_detail/<int:pk>', ExperienceDetailView.as_view(), name = 'experience_detail'),
-    path('experience_form/', ExperienceFormView.as_view(), name = 'experience_form'),
+    path('合格体験記一覧/<int:pk>', ExperienceListView.as_view(), name = '合格体験記一覧'),
+    path('pass/<int:pk>', ExperienceDetailView.as_view(), name = 'pass'),
+    path('write/', ExperienceFormView.as_view(), name = 'write'),
     path('thanks/', ThanksView.as_view(), name='thanks'),
 ]

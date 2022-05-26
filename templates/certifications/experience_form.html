@@ -3,20 +3,38 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <meta name="viewport" content="width=device-width">
+  <title>{% block title %}合格体験記を書く{% endblock %}</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/css/select2.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="https:/cdnjs.cloudflare.com/ajax/libs/select2/4.0.2/js/select2.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
   <link href="{% static 'css/list.css' %}" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
-  <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XKK4F4K5DQ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-XKK4F4K5DQ');
+  </script>
 </head>
 <body>
   <div class="container">
-    <div class="offset-1 col-10 mt-5">
-        <a href="{% url 'certifications:certification_list'%}">検索ページに戻る</a>
-        <form method="POST">
-          <div class="mt-3">
+    <div class="col-12 col-md-8 offset-md-2 col-sm-10 offset-sm-1 col-xl-6 offset-xl-3 mt-5">
+        <a href="{% url 'certifications:certification_list'%}">トップページに戻る</a>
+	<div class="mt-3" style="border:1px solid #eeeeee; padding:1em 1em; border-radius:10px;">
+		項目の横に※印がついている部分は記入必須です。それ以外は自由記入です。
+	</div>
+        <form class='mt-5' method="POST">
+          <div class="mt-3" style="border: 1px solid #eeeeee; padding:1em 1em; border-radius:10px;">
           {% csrf_token %}
           {{ form.as_p }}
           </div>
@@ -26,15 +44,14 @@
     </div>
   </div>
   
-  <script type="text/javascript">
-    $(document).ready(function() {  
-      console.log('aaa')
-        $('.chosen').chosen({ 
-            width:370,
-            search_contains: true,
-            no_results_text:"ありません",
-        })  
-    });  
+  <script>
+	$(window).on('load',function(){
+           $('.selecter').select2({
+		placeholder: '資格または大学名を入力して検索',
+		theme: "classic",
+		width: "100%",
+	   });
+	});
     </script>
 </body>
 </html>

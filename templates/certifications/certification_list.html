@@ -3,53 +3,55 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="このサイトでは資格、大学の合格体験記を閲覧、投稿することができます。ユーザー登録不要。あなたの体験をシェアしませんか？">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
   <link href="{% static 'css/list.css' %}" rel="stylesheet" type="text/css">
-  <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
+  <title>{% block title %}大学受験や資格の勉強方法で困っているあなたに | 合格体験くん{% endblock %}</title>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XKK4F4K5DQ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-XKK4F4K5DQ');
+</script>
 </head>
 <body>
   <div class="container-fluid h-100">
     <div class="row h-100">
-      <div class="col-2 bg-light h-100">
-        <div class="container mt-3 ">
-          <p class="text-center">合格体験くん</p>
-         <a style="display:block;" href="{% url 'certifications:experience_form' %}">体験記を書く</a>
+      <div class="col-md-2 d-none d-md-block bg-light h-100">
+        <div class="mt-5 ">
+		<p>～使い方～<br><br>①体験記を見たい資格、または大学名を検索ボックスへ入力してエンター,もしくは検索ボタンを押してください<br><br>②下に検索結果が表示されるので、閲覧したい体験記をクリックすると一覧ページに移動できます。<br><hr>「合格体験記を書く」ボタンから合格体験記の記入ページに移動できます。こちらからでも移動できます↓<br></p>
+         <a style="display:block;" href="{% url 'certifications:write' %}">合格体験記を書く</a>
         </div>
       </div>
-    <div class="offset-1 col-8">
+    <div class="col-md-8 col-12">
       <div class="mt-2">　</div>
         <div class="certification mt-5">
           <h1>合格体験記を探す</h1>
-          <div class="col-12">
+          <div>
           <form method="get", action = "{% url 'certifications:certification_list'%}">
-            <p><input style="width:280px" class="search mt-3 mb-2 col-12" type="text" name="certification_name" value="{{ certification_name }}" placeholder="資格名または大学名を入力してください"/><button type="submit"><i class="fas fa-search"></i></button></p>
+            <p><input style="width:300px" class="search mt-3 mb-2 col-12" type="text" name="certification_name" value="{{ certification_name }}" placeholder="体験記を見たい資格または大学名を検索"/><button type="submit"><i class="fas fa-search"></i></button></p>
           </form>
           </div>
           
-          <h5>検索結果</h5>
           {% if object_list|length == 0 %}
-            <p>検索結果が存在しません</p>
           {% else %}
+	  <h5>検索結果</h5>
             {% for certification in object_list %}
-            <a href="{% url 'certifications:experience_list' pk=certification.id %}">|{{ certification.name }}|合格体験記一覧</a><br>
+	    <a href="{% url 'certifications:合格体験記一覧' pk=certification.id %}">|{{ certification.name }}|受験記一覧</a><br>
             {% endfor %}
           {% endif %}
-          <a class="btn btn-primary mt-4" style="display:block; width:150px; margin:0 auto;"href="{% url 'certifications:experience_form' %}">合格体験記を書く</a>
+          <a class="btn btn-primary mt-4" style="display:block; width:150px; margin:0 auto;"href="{% url 'certifications:write' %}">合格体験記を書く</a>
           <hr>
           最近の投稿：投稿ありがとうございます✨
         
         <div class="mt-2">
-          <table style="margin:auto; font-size:14px; border-collapse:separate; border-spacing:20px 5px; table-layout:fixed;">
           {% for current_experience in current_experience_list reversed %}
-          <tr>
-            <td>
-              {{ current_experience.certification }}合格体験記
-            </td>
-            <td>
-              <a class="textwrap" href="{% url 'certifications:experience_detail' pk=current_experience.id %}">{{ current_experience.title}},{{ current_experience.timestamp | date:'Y/m/d H:i' }}</a>
-            </td>
-          </tr>
+	  <a class="text-wrap" style="display: block; width:100%; white-space: nowrap; text-overflow: ellipsis; overflow: hidden;" href="{% url 'certifications:pass' pk=current_experience.id %}">[{{ current_experience.certification }}]{{ current_experience.title}}</a>
           {% endfor %}
           </table>
           </div>
